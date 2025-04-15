@@ -1,4 +1,4 @@
-import Navbar from '../../Components/Navbar'
+import Navbar from '../../Components/Navbar/Navbar'
 import doctor from '../../assets/doctor.jpg'
 import medicine from '../../assets/medicine.png'
 import surgery from '../../assets/surgery.png'
