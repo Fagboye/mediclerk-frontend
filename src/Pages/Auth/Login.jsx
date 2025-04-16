@@ -1,26 +1,141 @@
+// Import necessary dependencies
 import Navbar from '../../Components/Navbar/Navbar'
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { z } from 'zod';
+import { useAuth } from '../../context/AuthContext';
 
+/**
+ * Login component that handles user authentication
+ * Provides form validation, error handling, and navigation after successful login
+ */
 const Login = () => {
+  // Hooks for navigation and authentication
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  
+  // State management
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  // Zod schema for form validation
+  const loginSchema = z.object({
+    email: z.string().email("Please enter a valid email address"),
+    password: z.string().min(1, "Password is required")
+  });
+
+  // Common CSS classes for styling consistency
+  const inputClasses = "w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500";
+  const labelClasses = "block text-sm font-medium text-gray-700";
+  const buttonClasses = "w-full py-2 rounded text-white";
+
+  /**
+   * Handles input changes in the form
+   * Updates form data and clears any existing errors
+   * @param {Event} e - The input change event
+   */
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({}); // Clear errors when user types
+  };
+
+  /**
+   * Handles form submission
+   * Validates input, attempts login, and handles any errors
+   * @param {Event} e - The form submission event
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+
+    try {
+      // Validate form data using Zod schema
+      loginSchema.parse(formData);
+      
+      // Attempt login and navigate to dashboard on success
+      await login(formData.email, formData.password);
+      navigate('/dashboard');
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Handle validation errors
+        const fieldErrors = {};
+        error.errors.forEach((err) => {
+          fieldErrors[err.path[0]] = err.message;
+        });
+        setErrors(fieldErrors);
+      } else {
+        // Handle authentication errors
+        console.error('Login failed:', error);
+        setErrors({ submit: 'Login failed. Please check your credentials.' });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Configuration for form fields
+  const formFields = [
+    { label: 'Email', type: 'text', name: 'email' },
+    { label: 'Password', type: 'password', name: 'password' }
+  ];
+
   return (
     <div>
       <Navbar />
     
+      {/* Main login container */}
       <div className="min-h-screen flex items-center justify-center bg-blue-50">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">Login to Mediclerk</h2>
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
-              <input type="email" className="w-full mt-1 px-3 py-2 border border-gray-300 rounded" required />
+          
+          {/* Display submission errors if any */}
+          {errors.submit && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              {errors.submit}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Password</label>
-              <input type="password" className="w-full mt-1 px-3 py-2 border border-gray-300 rounded" required />
-            </div>
-            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+          )}
+
+          {/* Login form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {formFields.map(field => (
+              <div key={field.name}>
+                <label className={labelClasses}>{field.label}</label>
+                <input 
+                  type={field.type}
+                  onChange={handleChange}
+                  name={field.name}
+                  className={inputClasses}
+                  // required
+                />
+                {/* Display field-specific validation errors */}
+                {errors[field.name] && (
+                  <p className="mt-1 text-sm text-red-600">{errors[field.name]}</p>
+                )}
+              </div>
+            ))}
+
+            {/* Submit button with loading state */}
+            <button 
+              type="submit"
+              disabled={loading}
+              className={`${buttonClasses} ${
+                loading 
+                  ? 'bg-blue-400 cursor-not-allowed' 
+                  : 'bg-blue-600 hover:bg-blue-700'
+              }`}
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
           </form>
+
+          {/* Registration link */}
           <p className="mt-4 text-sm text-center text-gray-600">
-            Don’t have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
+            Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
           </p>
         </div>
       </div>

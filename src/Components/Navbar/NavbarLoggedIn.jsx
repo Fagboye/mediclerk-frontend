@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * NavbarLoggedIn Component
@@ -14,6 +15,11 @@ import { Link, useNavigate } from 'react-router';
  * - Responsive design - navigation links hide on mobile
  */
 const NavbarLoggedIn = () => {
+
+
+    const { logout } = useAuth();
+
+
     // State to control user menu dropdown visibility
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
@@ -61,13 +67,6 @@ const NavbarLoggedIn = () => {
                     >
                         New Clerking
                     </Link>
-                    {/* History link with hover effects */}
-                    <Link
-                        to="/history"
-                        className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    >
-                        History
-                    </Link>
                 </div>
             </div>
 
@@ -110,7 +109,9 @@ const NavbarLoggedIn = () => {
                             </Link>
                             {/* Sign out button - navigates to login page */}
                             <button
-                                onClick={() => {navigate('/login')}}
+                                onClick={() => {
+                                    logout();
+                                }}
                                 className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                             >
                                 Sign out
