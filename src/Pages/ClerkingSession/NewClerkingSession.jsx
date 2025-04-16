@@ -4,7 +4,7 @@ import DynamicFormRenderer from '../../Components/ClerkingForm/DynamicFormRender
 import InternalMedicineForm from '../../FormFields/InternalMedicineForm';
 import SurgeryForm from '../../FormFields/SurgeryForm';
 import NavbarLoggedIn from '../../Components/Navbar/NavbarLoggedIn';
-
+import api from '../../api/axios';
 
 const specialties = [
     {
@@ -30,9 +30,44 @@ const NewClerkingSession = () => {
     };
 
     // Handle form submission
-    const handleFormSubmit = (data) => {
-        console.log('Form submitted:', data);
-        // Handle form submission
+    const handleFormSubmit = async (data) => {
+        try {
+            // Validate input data
+            if (!data || Object.keys(data).length === 0) {
+                throw new Error('Form data is empty or invalid');
+            }
+
+            // Make API request
+            const response = await api.post('/clerking-sessions', data);
+
+            // Validate response
+            if (!response || !response.data) {
+                throw new Error('Invalid response from server');
+            }
+
+            if (response.status === 201) {
+                console.log('Clerking session created successfully');
+                navigate('/clerking-sessions');
+            } else {
+                throw new Error(`Unexpected response status: ${response.status}`);
+            }
+
+        } catch (error) {
+            // Handle specific error types
+            if (error.response) {
+                // Server responded with error status
+                console.error('Server error:', error.response.data);
+                throw new Error(error.response.data.message || 'Server error occurred');
+            } else if (error.request) {
+                // Request made but no response received
+                console.error('Network error:', error.request);
+                throw new Error('Network error - please check your connection');
+            } else {
+                // Other errors
+                console.error('Error creating clerking session:', error.message);
+                throw new Error('Failed to create clerking session');
+            }
+        }
     };
 
     // Get form fields based on specialty
