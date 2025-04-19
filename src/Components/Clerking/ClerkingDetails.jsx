@@ -1,13 +1,15 @@
+
+
 const ClerkingDetails = () => {
+
     // Common styles
     const sectionStyles = "mb-6 border-b pb-4";
-    const lastSectionStyles = "mb-6";
     const headingStyles = "text-xl font-semibold text-gray-700 mb-2";
     const subHeadingStyles = "text-lg font-medium text-gray-600 mb-1";
     const textStyles = "text-gray-600";
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md" id="content">
             {/* specialty section */}
             <div className={sectionStyles}>
                 <h2 className={headingStyles}>Specialty</h2>
@@ -65,7 +67,7 @@ const ClerkingDetails = () => {
             </div>
 
             {/* diagnosis section */}
-            <div className={lastSectionStyles}>
+            <div className={sectionStyles}>
                 <h2 className={headingStyles}>Diagnosis</h2>
                 <p className={textStyles}>Suspected COVID-19 infection</p>
             </div>
