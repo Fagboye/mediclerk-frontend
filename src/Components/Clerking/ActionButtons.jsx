@@ -115,16 +115,10 @@ const ActionButtons = (id) => {
         }
     };
 
-
-
     return (
         <div className="space-x-4">
             <button 
-                style={{ 
-                    backgroundColor: '#22c55e',
-                    color: '#ffffff'
-                }}
-                className={`px-4 py-2 rounded hover:opacity-90
+                className={`px-4 py-2 rounded bg-gray-500 text-white hover:opacity-90
                     ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={handleExportPDF}
                 disabled={isExporting}
@@ -132,21 +126,13 @@ const ActionButtons = (id) => {
                 {isExporting ? 'Generating PDF...' : 'Export PDF'}
             </button>
             <button
-                style={{ 
-                    backgroundColor: '#2563eb',
-                    color: '#ffffff'
-                }}
-                className="px-4 py-2 rounded-md hover:opacity-90"
+                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:opacity-90"
                 onClick={() => handleUpdate(id)}
             >
                 Update
             </button>
             <button
-                style={{ 
-                    backgroundColor: '#dc2626',
-                    color: '#ffffff'
-                }}
-                className="px-4 py-2 rounded-md hover:opacity-90"
+                className="px-4 py-2 rounded-md bg-red-600 text-white hover:opacity-90"
                 onClick={() => handleDelete(id)}
             >
                 Delete
