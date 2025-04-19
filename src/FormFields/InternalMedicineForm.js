@@ -8,28 +8,30 @@ const InternalMedicineFields = [
         placeholder: 'Enter patient biodata',
         validation: {
             required: 'Patient biodata is required'
-        }
+        },
+        showAiSuggestions: false
     },
     {
         id: 'PC',
-        name: 'presenting_complaint',
-        label: 'Presenting Complaint',
+        name: 'presenting_complaints',
+        label: 'Presenting Complaints',
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter presenting complaint',
         validation: {
-            required: 'Presenting complaint is required'
-        }
+            required: 'Presenting complaints is required'
+        },
+        showAiSuggestions: false
     },
     {
         id: 'HPC',
-        name: 'history_of_presenting_complaint',
-        label: 'History of Presenting Complaint',
+        name: 'history_of_presenting_complaints',
+        label: 'History of Presenting Complaints',
         type: 'textarea', 
         rows: 4,
         placeholder: 'Enter history of presenting complaint',
         validation: {
-            required: 'History of presenting complaint is required'
+            required: 'History of presenting complaints is required'
         }
     },
     {
@@ -95,7 +97,8 @@ const InternalMedicineFields = [
         placeholder: 'Enter diagnosis',
         validation: {
             required: 'Diagnosis is required'
-        }
+        },
+        showAiSuggestions: false
     }
 ]
 

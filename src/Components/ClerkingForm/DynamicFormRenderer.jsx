@@ -1,4 +1,4 @@
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import FormInput from './FormInput';
 import { useEffect } from 'react';
 
@@ -8,8 +8,11 @@ const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit}) => {
         handleSubmit, 
         formState: {errors}, 
         clearErrors,
-        unregister
+        unregister,
+        watch
     } = useForm();
+
+    const formValues = watch();
 
     useEffect(() => {
         formFields.forEach(field => {
@@ -32,16 +35,24 @@ const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit}) => {
                     register={register}
                     validation={field.validation}
                     error={errors[field.name]?.message}
+                    formValues={formValues}
+                    showAiSuggestions={field.showAiSuggestions}
                 />
             ))}
             <button
                 type="submit"
-                className="w-full py-3 px-4 bg-blue-600 text-white font-medium 
-                        rounded-md hover:bg-blue-700 focus:outline-none 
-                        focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
-                        transition-colors duration-200"
+                className="max-w-xs mx-auto py-3 px-5 bg-gradient-to-r from-blue-600 to-blue-700 
+                        text-white font-medium text-base tracking-wide
+                        rounded-lg shadow hover:from-blue-700 hover:to-blue-800 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500/50
+                        active:scale-[0.98] transform transition-all duration-200
+                        disabled:opacity-70 disabled:cursor-not-allowed
+                        flex items-center justify-center gap-2 mt-10"
             >
-                Submit
+                <span>Save Clerking Note</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                </svg>
             </button>
         </form>
     )
