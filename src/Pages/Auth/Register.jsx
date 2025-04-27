@@ -10,16 +10,16 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: ''
   });
 
   // Zod schema for form validation
   const registerSchema = z.object({
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"), 
+    first_name: z.string().min(1, "First name is required"),
+    last_name: z.string().min(1, "Last name is required"), 
     email: z.string().email("Please enter a valid email address"),
     password: z.string().min(8, "Password must be at least 8 characters long")
   });
@@ -43,7 +43,7 @@ const Register = () => {
       // Validate form data
       registerSchema.parse(formData);
       
-      const response = await api.post('/register', formData);
+      const response = await api.post('/auth/register', formData);
       if (response.status === 200) {
         console.log(response.data);
         navigate('/login');
@@ -67,10 +67,10 @@ const Register = () => {
 
   // Form field configurations
   const formFields = [
-    { label: 'First Name', type: 'text', name: 'firstName' },
-    { label: 'Last Name', type: 'text', name: 'lastName' },
-    { label: 'Email', type: 'text', name: 'email' },
-    { label: 'Password', type: 'password', name: 'password' }
+    { label: 'First Name', type: 'text', name: 'first_name', autoComplete: 'given-name' },
+    { label: 'Last Name', type: 'text', name: 'last_name', autoComplete: 'family-name' },
+    { label: 'Email', type: 'text', name: 'email', autoComplete: 'email' },
+    { label: 'Password', type: 'password', name: 'password', autoComplete: 'new-password' }
   ];
   
   return (
@@ -89,12 +89,14 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {formFields.map(field => (
               <div key={field.name}>
-                <label className={labelClasses}>{field.label}</label>
+                <label className={labelClasses} htmlFor={field.name}>{field.label}</label>
                 <input 
+                  id={field.name}
                   type={field.type}
                   onChange={handleChange}
                   name={field.name}
                   className={inputClasses}
+                  autoComplete={field.autoComplete}
                   required
                 />
                 {errors[field.name] && (
@@ -126,4 +128,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register;

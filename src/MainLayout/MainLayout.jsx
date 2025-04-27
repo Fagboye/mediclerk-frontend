@@ -8,6 +8,7 @@ import NewClerkingSession from '../Pages/NewClerking/NewClerkingSession'
 import { AuthProvider } from '../context/AuthContext'
 import DashBoard from '../Pages/ClerkingList/DashBoard'
 import ClerkingView from '../Pages/ClerkingView/ClerkingView'
+import UpdateClerkingSession from '../Pages/UpdateClerking/UpdateClerkingSession'
 
 const MainLayout = () => {
   console.log('MainLayout is rendering');
@@ -21,6 +22,7 @@ const MainLayout = () => {
            <Route path='/clerkings' element={<DashBoard />} />
            <Route path='/clerkings/new' element={<NewClerkingSession />} />
            <Route path='/clerkings/:id' element={<ClerkingView />} />
+           <Route path='/clerkings/:id/update' element ={<UpdateClerkingSession />}/>
            <Route path='*' element={<Error />} />
         </Routes>
         </AuthProvider>

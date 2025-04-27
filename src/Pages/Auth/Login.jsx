@@ -59,7 +59,7 @@ const Login = () => {
       
       // Attempt login and navigate to dashboard on success
       await login(formData.email, formData.password);
-      navigate('/dashboard');
+      navigate('/clerkings');
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Handle validation errors
@@ -104,8 +104,9 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {formFields.map(field => (
               <div key={field.name}>
-                <label className={labelClasses}>{field.label}</label>
+                <label className={labelClasses} htmlFor={field.name}>{field.label}</label>
                 <input 
+                  id={field.name}
                   type={field.type}
                   onChange={handleChange}
                   name={field.name}

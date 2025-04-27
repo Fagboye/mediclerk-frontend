@@ -12,7 +12,7 @@ const SurgeryFields = [
         showAiSuggestions: false
     },
     {
-        id: 'PC',
+        id: 'presenting_complaints',
         name: 'presenting_complaints',
         label: 'Presenting Complaints',
         type: 'textarea',
@@ -24,7 +24,7 @@ const SurgeryFields = [
         showAiSuggestions: false
     },
     {
-        id: 'HPC',
+        id: 'history_of_presenting_complaints',
         name: 'history_of_presenting_complaints',
         label: 'History of Presenting Complaints',
         type: 'textarea', 
@@ -35,7 +35,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'PSH',
+        id: 'past_surgical_history',
         name: 'past_surgical_history',
         label: 'Past Surgical History',
         type: 'textarea',
@@ -46,7 +46,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'DH',
+        id: 'drug_history',
         name: 'drug_history',
         label: 'Drug History',
         type: 'textarea',
@@ -57,7 +57,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'FH',
+        id: 'family_history',
         name: 'family_history',
         label: 'Family History',
         type: 'textarea',
@@ -68,7 +68,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'SH',
+        id: 'social_history',
         name: 'social_history',
         label: 'Social History',
         type: 'textarea',
@@ -79,7 +79,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'Examinations',
+        id: 'examinations',
         name: 'examinations',
         label: 'Examinations',
         type: 'textarea',
@@ -90,7 +90,7 @@ const SurgeryFields = [
         }
     },
     {
-        id: 'Diagnosis',
+        id: 'diagnosis',
         name: 'diagnosis',
         label: 'Diagnosis',
         type: 'text',
