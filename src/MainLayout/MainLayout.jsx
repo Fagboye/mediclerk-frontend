@@ -4,20 +4,28 @@ import Home from '../Pages/Home/Home'
 import Login from '../Pages/Auth/Login'
 import Register from '../Pages/Auth/Register'
 import Error from '../Pages/Error/Error'
-import NewClerkingSession from '../Pages/ClerkingSession/NewClerkingSession'
-
+import NewClerkingSession from '../Pages/NewClerking/NewClerkingSession'
+import { AuthProvider } from '../context/AuthContext'
+import DashBoard from '../Pages/ClerkingList/DashBoard'
+import ClerkingView from '../Pages/ClerkingView/ClerkingView'
+import UpdateClerkingSession from '../Pages/UpdateClerking/UpdateClerkingSession'
 
 const MainLayout = () => {
   console.log('MainLayout is rendering');
   return (
     <BrowserRouter>
+        <AuthProvider>
         <Routes>
            <Route path='/' element={<Home />} />
            <Route path='/login' element={<Login />} />
            <Route path='/register' element={<Register />} />
-           <Route path='/clerk' element={<NewClerkingSession />} />
+           <Route path='/clerkings' element={<DashBoard />} />
+           <Route path='/clerkings/new' element={<NewClerkingSession />} />
+           <Route path='/clerkings/:id' element={<ClerkingView />} />
+           <Route path='/clerkings/:id/update' element ={<UpdateClerkingSession />}/>
            <Route path='*' element={<Error />} />
         </Routes>
+        </AuthProvider>
     </BrowserRouter>
   );
 };

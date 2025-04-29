@@ -14,8 +14,8 @@ const Home = () => {
         {/* Hero Section */}
         <section className="flex flex-col lg:flex-row items-center justify-between px-8 py-16 bg-white">
           <div className="lg:w-1/2 mb-10 lg:mb-0 bg-white p-6 rounded-lg">
-            <h2 className="text-4xl font-semibold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500">Digital Patient Clerking Made For Medical Students</h2>
-            <p className="text-[#4D4D4D] mb-8 text-lg font-semibold leading-relaxed max-w-xl">Enter and manage patient clerkings seamlessly, with AI-assisted presentation generation.</p>
+            <h2 className="text-4xl font-semibold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500">Electronic Clerking For Medical Students with AI Companion</h2>
+            <p className="text-[#4D4D4D] mb-8 text-lg font-semibold leading-relaxed max-w-xl">Streamline your medical clerking workflow with intelligent AI assistance. Create comprehensive patient notes in minutes.</p>
             {/* <button className="bg-[#3461FF] text-white font-medium px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors">New Clerking</button> */}
           </div>
           <div className="lg:w-1/2">

@@ -1,4 +1,4 @@
-const SurgeryFields = [
+const PediatricsFields = [
     {
         id: 'first_name',
         name: 'first_name',
@@ -41,7 +41,7 @@ const SurgeryFields = [
         placeholder: 'Enter presenting complaints',
         rows: 4,
         validation: {
-            required: 'Presenting complaint is required'
+            required: 'Presenting complaints is required'
         },
         showAiSuggestions: false
     },
@@ -49,17 +49,71 @@ const SurgeryFields = [
         id: 'history_of_presenting_complaints',
         name: 'history_of_presenting_complaints',
         label: 'History of Presenting Complaints',
-        type: 'textarea', 
+        type: 'textarea',
         placeholder: 'Enter history of presenting complaints',
         rows: 4,
         validation: {}
     },
     {
-        id: 'past_surgical_history',
-        name: 'past_surgical_history',
-        label: 'Past Surgical History',
+        id: 'past_medical_history',
+        name: 'past_medical_history',
+        label: 'Past Medical History',
         type: 'textarea',
-        placeholder: 'Enter past surgical history',
+        placeholder: 'Enter past medical history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'antenatal_history',
+        name: 'antenatal_history',
+        label: 'Antenatal History',
+        type: 'textarea',
+        placeholder: 'Enter antenatal history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'natal_history',
+        name: 'natal_history',
+        label: 'Natal History',
+        type: 'textarea',
+        placeholder: 'Enter natal history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'postnatal_history',
+        name: 'postnatal_history',
+        label: 'Postnatal History',
+        type: 'textarea',
+        placeholder: 'Enter postnatal history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'nutritional_history',
+        name: 'nutritional_history',
+        label: 'Nutritional History',
+        type: 'textarea',
+        placeholder: 'Enter nutritional history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'immunization_history',
+        name: 'immunization_history',
+        label: 'Immunization History',
+        type: 'textarea',
+        placeholder: 'Enter immunization history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'growth_and_developmental_history',
+        name: 'growth_and_developmental_history',
+        label: 'Growth and Developmental History',
+        type: 'textarea',
+        placeholder: 'Enter growth and developmental history',
         rows: 4,
         validation: {}
     },
@@ -86,7 +140,7 @@ const SurgeryFields = [
         name: 'examinations',
         label: 'Examinations',
         type: 'textarea',
-        placeholder: 'Enter examination findings',
+        placeholder: 'Enter examinations',
         rows: 4,
         validation: {}
     },
@@ -101,4 +155,6 @@ const SurgeryFields = [
     }
 ]
 
-export default SurgeryFields;
+export default PediatricsFields;
+    
+

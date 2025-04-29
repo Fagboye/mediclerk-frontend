@@ -1,101 +1,103 @@
 const InternalMedicineFields = [
     {
+        id: 'first_name',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'text',
+        placeholder: 'Enter patient first name',
+        validation: {
+            required: 'Patient first name is required'
+        },
+        showAiSuggestions: false    
+    },
+    {
+        id: 'last_name',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'text',
+        placeholder: 'Enter patient last name',
+        validation: {
+            required: 'Patient last name is required'
+        },
+        showAiSuggestions: false
+    },
+    {
         id: 'patient_biodata',
         name: 'patient_biodata',
         label: 'Patient Biodata',
         type: 'textarea',
         rows: 4,
-        placeholder: 'Enter patient biodata',
+        placeholder: 'Enter remaining patient biodata',
         validation: {
             required: 'Patient biodata is required'
-        }
+        },
+        showAiSuggestions: false
     },
     {
-        id: 'PC',
-        name: 'presenting_complaint',
-        label: 'Presenting Complaint',
+        id: 'presenting_complaints',
+        name: 'presenting_complaints',
+        label: 'Presenting Complaints',
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter presenting complaint',
         validation: {
-            required: 'Presenting complaint is required'
-        }
+            required: 'Presenting complaints is required'
+        },
+        showAiSuggestions: false
     },
     {
-        id: 'HPC',
-        name: 'history_of_presenting_complaint',
-        label: 'History of Presenting Complaint',
+        id: 'history_of_presenting_complaints',
+        name: 'history_of_presenting_complaints',
+        label: 'History of Presenting Complaints',
         type: 'textarea', 
         rows: 4,
         placeholder: 'Enter history of presenting complaint',
-        validation: {
-            required: 'History of presenting complaint is required'
-        }
+        validation: {}
     },
     {
-        id: 'PMH',
+        id: 'past_medical_history',
         name: 'past_medical_history',
         label: 'Past Medical History',
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter past medical history',
-        validation: {
-            required: 'Past medical history is required'
-        }
+        validation: {}
     },
     {
-        id: 'DH',
+        id: 'drug_history',
         name: 'drug_history',
         label: 'Drug History',
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter drug history',
-        validation: {
-            required: 'Drug history is required'
-        }
+        validation: {}
     },
     {
-        id: 'FH',
-        name: 'family_history',
-        label: 'Family History',
+        id: 'family_and_social_history',
+        name: 'family_and_social_history',
+        label: 'Family and Social History',
         type: 'textarea',
         rows: 4,
-        placeholder: 'Enter family history',
-        validation: {
-            required: 'Family history is required'
-        }
+        placeholder: 'Enter family and social history',
+        validation: {}
     },
     {
-        id: 'SH',
-        name: 'social_history',
-        label: 'Social History',
-        type: 'textarea',
-        rows: 4,
-        placeholder: 'Enter social history', 
-        validation: {
-            required: 'Social history is required'
-        }
-    },
-    {
-        id: 'Examinations',
+        id: 'examinations',
         name: 'examinations',
         label: 'Examinations',
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter examination findings',
-        validation: {
-            required: 'Examination findings are required'
-        }
+        validation: {}
     },
     {
-        id: 'Diagnosis',
+        id: 'diagnosis',
         name: 'diagnosis',
         label: 'Diagnosis',
         type: 'text',
         placeholder: 'Enter diagnosis',
-        validation: {
-            required: 'Diagnosis is required'
-        }
+        validation: {},
+        showAiSuggestions: false
     }
 ]
 

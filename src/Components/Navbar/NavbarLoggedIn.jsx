@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * NavbarLoggedIn Component
@@ -14,18 +15,20 @@ import { Link, useNavigate } from 'react-router';
  * - Responsive design - navigation links hide on mobile
  */
 const NavbarLoggedIn = () => {
+
+
+    const { logout } = useAuth();
+
+
     // State to control user menu dropdown visibility
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
     // Hook for programmatic navigation
     const navigate= useNavigate();
 
-    // Mock user data - to be replaced with actual user data from authentication context
-    const user = {
-        name: 'Dr. John Doe',
-        email: 'john.doe@example.com',
-        avatar: '/avatar-placeholder.png'
-    };
+    // User data from authentication context
+
+    const { user } = useAuth();
 
     /**
      * Toggles the visibility of the user menu dropdown
@@ -49,24 +52,17 @@ const NavbarLoggedIn = () => {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                     {/* Dashboard link with hover effects */}
                     <Link
-                        to="/dashboard"
+                        to="/clerkings"
                         className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                     >
-                        Dashboard
+                        Clerking List
                     </Link>
                     {/* New Clerking link with hover effects */}
                     <Link
-                        to="/clerk"
+                        to="/clerkings/new"
                         className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                     >
                         New Clerking
-                    </Link>
-                    {/* History link with hover effects */}
-                    <Link
-                        to="/history"
-                        className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                    >
-                        History
                     </Link>
                 </div>
             </div>
@@ -82,39 +78,45 @@ const NavbarLoggedIn = () => {
                         <span className="sr-only">Open user menu</span>
                         {/* User avatar circle with first letter of name */}
                         <div className="h-8 w-8 rounded-full bg-blue-500 text-white flex items-center justify-center">
-                            {user.name.charAt(0)}
+                            {user?.last_name?.charAt(0)}
                         </div>
                     </button>
 
                     {/* Dropdown menu - conditionally rendered based on isUserMenuOpen state */}
                     {isUserMenuOpen && (
-                        <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
+                        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50 divide-y divide-gray-100">
                             {/* User info section displaying name and email */}
-                            <div className="px-4 py-2 border-b">
-                                <p className="text-sm font-medium text-gray-900">{user.name}</p>
-                                <p className="text-sm text-gray-500">{user.email}</p>
+                            <div className="px-4 py-3 bg-gray-50 rounded-t-lg">
+                                <p className="text-sm font-semibold text-gray-900 truncate">{user?.first_name} {user?.last_name}</p>
+                                <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                             </div>
                             {/* Profile link with hover effect */}
-                            <Link
-                                to="/profile"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            >
-                                Your Profile
-                            </Link>
-                            {/* Settings link with hover effect */}
-                            <Link
-                                to="/settings"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            >
-                                Settings
-                            </Link>
+                            <div className="py-1">
+                                <Link
+                                    to="/profile"
+                                    className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                                >
+                                    <span className="flex-1">Your Profile</span>
+                                </Link>
+                                {/* Settings link with hover effect */}
+                                <Link
+                                    to="/settings"
+                                    className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                                >
+                                    <span className="flex-1">Settings</span>
+                                </Link>
+                            </div>
                             {/* Sign out button - navigates to login page */}
-                            <button
-                                onClick={() => {navigate('/login')}}
-                                className="block w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
-                            >
-                                Sign out
-                            </button>
+                            <div className="py-1">
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                    }}
+                                    className="flex w-full items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150 rounded-b-lg"
+                                >
+                                    <span className="flex-1">Sign out</span>
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
