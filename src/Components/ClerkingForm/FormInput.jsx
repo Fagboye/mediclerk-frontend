@@ -32,7 +32,7 @@ const FormInput = ({
   }) => {
     // State for managing AI suggestions loading and results
     const [isLoading, setIsLoading] = useState(false);
-    const [suggestions, setSuggestions] = useState([]);
+    const [suggestions, setSuggestions] = useState(null);
 
     /**
      * Fetches AI-powered suggestions based on the field name and form context

@@ -41,10 +41,10 @@ const Register = () => {
 
     try {
       // Validate form data
-      registerSchema.parse(formData);
+      const validatedData = registerSchema.parse(formData);
       
-      const response = await api.post('/auth/register', formData);
-      if (response.status === 200) {
+      const response = await api.post('/auth/register', validatedData);
+      if (response.status === 201) {
         console.log(response.data);
         navigate('/login');
       }

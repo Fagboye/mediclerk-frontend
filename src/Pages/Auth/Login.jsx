@@ -55,10 +55,10 @@ const Login = () => {
 
     try {
       // Validate form data using Zod schema
-      loginSchema.parse(formData);
+      const validatedData = loginSchema.parse(formData);
       
       // Attempt login and navigate to dashboard on success
-      await login(formData.email, formData.password);
+      await login(validatedData.email, validatedData.password);
       navigate('/clerkings');
     } catch (error) {
       if (error instanceof z.ZodError) {

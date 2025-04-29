@@ -26,12 +26,9 @@ const NavbarLoggedIn = () => {
     // Hook for programmatic navigation
     const navigate= useNavigate();
 
-    // Mock user data - to be replaced with actual user data from authentication context
-    const user = {
-        name: 'Fagboye Tobiloba',
-        email: 'fagboyetobiloba@gmail.com',
-        avatar: '/avatar-placeholder.png'
-    };
+    // User data from authentication context
+
+    const { user } = useAuth();
 
     /**
      * Toggles the visibility of the user menu dropdown
@@ -81,7 +78,7 @@ const NavbarLoggedIn = () => {
                         <span className="sr-only">Open user menu</span>
                         {/* User avatar circle with first letter of name */}
                         <div className="h-8 w-8 rounded-full bg-blue-500 text-white flex items-center justify-center">
-                            {user.name.charAt(0)}
+                            {user?.last_name?.charAt(0)}
                         </div>
                     </button>
 
@@ -90,8 +87,8 @@ const NavbarLoggedIn = () => {
                         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50 divide-y divide-gray-100">
                             {/* User info section displaying name and email */}
                             <div className="px-4 py-3 bg-gray-50 rounded-t-lg">
-                                <p className="text-sm font-semibold text-gray-900 truncate">{user.name}</p>
-                                <p className="text-xs text-gray-500 truncate mt-0.5">{user.email}</p>
+                                <p className="text-sm font-semibold text-gray-900 truncate">{user?.first_name} {user?.last_name}</p>
+                                <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                             </div>
                             {/* Profile link with hover effect */}
                             <div className="py-1">

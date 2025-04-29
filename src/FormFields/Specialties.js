@@ -8,5 +8,15 @@ export const specialties = [
         id: 'surgery',
         name: 'Surgery',
         description: 'clerking pad for surgery'
+    },
+    {
+        id: 'pediatrics',
+        name: 'Pediatrics',
+        description: 'clerking pad for pediatrics'
+    },
+    {
+        id: 'obstetrics and gynaecology',
+        name: 'Obstetrics and Gynaecology',
+        description: 'clerking pad for O&G'
     }
 ]

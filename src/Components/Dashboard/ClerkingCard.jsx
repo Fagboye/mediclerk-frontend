@@ -54,7 +54,7 @@ const ClerkingCard = ({id, specialty, clerking_note, created_at}) => {
                     {clerking_note.first_name} {clerking_note.last_name}
                 </h3>
                 <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium transition-colors">
-                    {specialty || 'Unknown Specialty'}
+                    {(specialty || 'UNKNOWN SPECIALTY').toUpperCase()}
                 </span>
             </div>
             {/* Details section with diagnosis and creation time */}

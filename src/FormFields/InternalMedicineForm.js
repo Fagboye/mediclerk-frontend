@@ -1,11 +1,33 @@
 const InternalMedicineFields = [
     {
+        id: 'first_name',
+        name: 'first_name',
+        label: 'First Name',
+        type: 'text',
+        placeholder: 'Enter patient first name',
+        validation: {
+            required: 'Patient first name is required'
+        },
+        showAiSuggestions: false    
+    },
+    {
+        id: 'last_name',
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'text',
+        placeholder: 'Enter patient last name',
+        validation: {
+            required: 'Patient last name is required'
+        },
+        showAiSuggestions: false
+    },
+    {
         id: 'patient_biodata',
         name: 'patient_biodata',
         label: 'Patient Biodata',
         type: 'textarea',
         rows: 4,
-        placeholder: 'Enter patient biodata',
+        placeholder: 'Enter remaining patient biodata',
         validation: {
             required: 'Patient biodata is required'
         },
@@ -30,9 +52,7 @@ const InternalMedicineFields = [
         type: 'textarea', 
         rows: 4,
         placeholder: 'Enter history of presenting complaint',
-        validation: {
-            required: 'History of presenting complaints is required'
-        }
+        validation: {}
     },
     {
         id: 'past_medical_history',
@@ -41,9 +61,7 @@ const InternalMedicineFields = [
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter past medical history',
-        validation: {
-            required: 'Past medical history is required'
-        }
+        validation: {}
     },
     {
         id: 'drug_history',
@@ -52,31 +70,16 @@ const InternalMedicineFields = [
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter drug history',
-        validation: {
-            required: 'Drug history is required'
-        }
+        validation: {}
     },
     {
-        id: 'family_history',
-        name: 'family_history',
-        label: 'Family History',
+        id: 'family_and_social_history',
+        name: 'family_and_social_history',
+        label: 'Family and Social History',
         type: 'textarea',
         rows: 4,
-        placeholder: 'Enter family history',
-        validation: {
-            required: 'Family history is required'
-        }
-    },
-    {
-        id: 'social_history',
-        name: 'social_history',
-        label: 'Social History',
-        type: 'textarea',
-        rows: 4,
-        placeholder: 'Enter social history', 
-        validation: {
-            required: 'Social history is required'
-        }
+        placeholder: 'Enter family and social history',
+        validation: {}
     },
     {
         id: 'examinations',
@@ -85,9 +88,7 @@ const InternalMedicineFields = [
         type: 'textarea',
         rows: 4,
         placeholder: 'Enter examination findings',
-        validation: {
-            required: 'Examination findings are required'
-        }
+        validation: {}
     },
     {
         id: 'diagnosis',
@@ -95,9 +96,7 @@ const InternalMedicineFields = [
         label: 'Diagnosis',
         type: 'text',
         placeholder: 'Enter diagnosis',
-        validation: {
-            required: 'Diagnosis is required'
-        },
+        validation: {},
         showAiSuggestions: false
     }
 ]

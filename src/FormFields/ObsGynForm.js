@@ -1,4 +1,4 @@
-const SurgeryFields = [
+const ObsGynFields = [
     {
         id: 'first_name',
         name: 'first_name',
@@ -41,7 +41,7 @@ const SurgeryFields = [
         placeholder: 'Enter presenting complaints',
         rows: 4,
         validation: {
-            required: 'Presenting complaint is required'
+            required: 'Presenting complaints are required'
         },
         showAiSuggestions: false
     },
@@ -49,26 +49,35 @@ const SurgeryFields = [
         id: 'history_of_presenting_complaints',
         name: 'history_of_presenting_complaints',
         label: 'History of Presenting Complaints',
-        type: 'textarea', 
+        type: 'textarea',
         placeholder: 'Enter history of presenting complaints',
         rows: 4,
         validation: {}
     },
     {
-        id: 'past_surgical_history',
-        name: 'past_surgical_history',
-        label: 'Past Surgical History',
+        id: 'past_gynaecological_history',
+        name: 'past_gynaecological_history',
+        label: 'Past Gynaecological History',
         type: 'textarea',
-        placeholder: 'Enter past surgical history',
+        placeholder: 'Enter past gynaecological history',
         rows: 4,
         validation: {}
     },
     {
-        id: 'drug_history',
-        name: 'drug_history',
-        label: 'Drug History',
+        id: 'past_obstetrical_history',
+        name: 'past_obstetrical_history',
+        label: 'Past Obstetrical History',
         type: 'textarea',
-        placeholder: 'Enter drug history',
+        placeholder: 'Enter past obstetrical history',
+        rows: 4,
+        validation: {}
+    },
+    {
+        id: 'past_medical_history',
+        name: 'past_medical_history',
+        label: 'Past Medical History',
+        type: 'textarea',
+        placeholder: 'Enter past medical history',
         rows: 4,
         validation: {}
     },
@@ -86,7 +95,7 @@ const SurgeryFields = [
         name: 'examinations',
         label: 'Examinations',
         type: 'textarea',
-        placeholder: 'Enter examination findings',
+        placeholder: 'Enter examinations',
         rows: 4,
         validation: {}
     },
@@ -101,4 +110,5 @@ const SurgeryFields = [
     }
 ]
 
-export default SurgeryFields;
+export default ObsGynFields;
+

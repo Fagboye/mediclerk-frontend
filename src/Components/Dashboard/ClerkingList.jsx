@@ -21,6 +21,8 @@ const ClerkingsList = () => {
      * or when accessToken changes
      */
     useEffect(() => {
+        let isMounted = true;
+
         const fetchClerkings = async () => {
             try {
                 // Validate access token
@@ -40,8 +42,10 @@ const ClerkingsList = () => {
                     throw new Error('No data received from server');
                 }
 
-                setClerkings(response.data);
-                setError(null);
+                if (isMounted) {
+                    setClerkings(response.data);
+                    setError(null);
+                }
             } catch (error) {
                 console.error('Error fetching clerkings:', {
                     message: error.message,
@@ -50,52 +54,26 @@ const ClerkingsList = () => {
                 });
 
                 // Handle specific error cases
-                if (error.response?.status === 401) {
-                    setError('Unauthorized access. Please login again.');
-                } else if (error.response?.status === 404) {
+                if (isMounted) {
+                    if (error.response?.status === 401) {
+                        setError('Unauthorized access. Please login again.');
+                    } else if (error.response?.status === 404) {
                     setError('No clerkings found.');
                 } else if (!navigator.onLine) {
                     setError('Network connection error. Please check your internet connection.');
                 } else {
-                    setError('Failed to fetch clerkings. Please try again later.');
+                        setError('Failed to fetch clerkings. Please try again later.');
+                    }
                 }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchClerkings();
     }, [accessToken]);
-
-    /**
-     * Mock data for development/testing purposes
-     */
-    const mockClerking = [
-        {
-            id: 1,
-            first_name: 'John',
-            last_name: 'Smith',
-            specialty: 'Internal Medicine',
-            diagnosis: 'Community Acquired Pneumonia',
-            created_at: '2024-01-15 09:30 AM'
-        },
-        {
-            id: 2,
-            first_name: 'Sarah',
-            last_name: 'Johnson',
-            specialty: 'Surgery',
-            diagnosis: 'Acute Appendicitis',
-            created_at: '2024-01-14 02:15 PM'
-        },
-        {
-            id: 3,
-            first_name: 'Michael',
-            last_name: 'Williams',
-            specialty: 'Internal Medicine',
-            diagnosis: 'Acute Kidney Injury',
-            created_at: '2024-01-13 11:45 AM'
-        }
-    ];
 
     /**
      * Updates search term state when user types in search input
@@ -162,8 +140,8 @@ const ClerkingsList = () => {
                 <div className="grid gap-4">
                     {clerkings
                         .filter(clerking => 
-                            clerking.clerking_note.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            clerking.clerking_note.last_name?.toLowerCase().includes(searchTerm.toLowerCase())
+                            clerking.clerking_note.first_name?.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
+                            clerking.clerking_note.last_name?.toLowerCase().includes(searchTerm.toLowerCase().trim())
                         )
                         .map((clerking) => (
                             <ClerkingCard key={clerking.id} id={clerking.id} specialty={clerking.specialty} clerking_note={clerking.clerking_note} created_at={clerking.created_at} />

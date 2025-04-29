@@ -1,13 +1,24 @@
-// Import required dependencies
+/**
+ * @file UpdateClerkingSession.jsx
+ * @description Component for updating existing clerking sessions with form validation and API integration
+ */
+
+// React and routing dependencies
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router';
-import SpecialtySelector from '../../Components/ClerkingForm/SpecialtySelector';
+import { useParams, useNavigate, useLocation } from 'react-router';
+
+// Component imports
 import DynamicFormRenderer from '../../Components/ClerkingForm/DynamicFormRenderer';
 import InternalMedicineForm from '../../FormFields/InternalMedicineForm';
 import SurgeryForm from '../../FormFields/SurgeryForm';
+import PediatricsForm from '../../FormFields/PediatricsForm';
+import ObsGynForm from '../../FormFields/ObsGynForm';
 import NavbarLoggedIn from '../../Components/Navbar/NavbarLoggedIn';
+
+// API and context imports
 import api from '../../api/axios';
 import { specialties } from "../../FormFields/Specialties";
+import { useAuth } from "../../context/AuthContext";
 
 /**
  * Returns form fields based on the selected specialty
@@ -18,6 +29,8 @@ const getFormFields = (specialtyId) => {
     switch (specialtyId) {
         case 'internal medicine': return InternalMedicineForm;
         case 'surgery': return SurgeryForm;
+        case 'pediatrics': return PediatricsForm;
+        case 'obstetrics and gynaecology': return ObsGynForm;
         default: return [];
     }
 };
@@ -27,35 +40,57 @@ const getFormFields = (specialtyId) => {
  * Allows users to modify patient data for a specific specialty
  */
 const UpdateClerkingSession = () => {
-    // Get clerking session ID from URL params
-    const {id} = useParams();
+    // Get clerking session ID from URL params and location state
+    const { id } = useParams();
     const navigate = useNavigate();
+    const { state } = useLocation();
+
+    // Get access token from context
+    const { accessToken } = useAuth();
     
     // State management
-    const [selectedSpecialty, setSelectedSpecialty] = useState("internal medicine");
+    const [selectedSpecialty, setSelectedSpecialty] = useState(null);
     const [formFields, setFormFields] = useState([]);
     const [defaultValues, setDefaultValues] = useState({});
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // Fetch existing clerking note data when component mounts
-    useEffect( () => {
+    useEffect(() => {
         const fetchClerkingNote = async () => {
             try {
-                // TODO: Uncomment when API is ready
-                // const response = await api.get(`/clerk-note/${id}`);
-                // if (!response || !response.data) throw new Error('Invalid response from server');
-                // const data = response.data;
-                // setSelectedSpecialty("internal medicine");
-                setFormFields(getFormFields(selectedSpecialty));
-                // setDefaultValues(data.clerking_note);
+                setLoading(true);
+                setError(null);
+
+                // Get clerking data from state or fetch from API
+                let clerking;
+                if (state?.clerking) {
+                    clerking = state.clerking;
+                } else {
+                    const response = await api.get(`/clerkpad/retrieve/${id}`, {
+                        headers: { Authorization: `Bearer ${accessToken}` }
+                    });
+                    clerking = response.data;
+                }
+
+                if (!clerking) {
+                    throw new Error('No clerking data available');
+                }
+
+                setSelectedSpecialty(clerking.specialty);
+                setFormFields(getFormFields(clerking.specialty));
+                setDefaultValues(clerking.clerking_note);
+
             } catch (err) {
-                console.log(err)
+                console.error('Error fetching clerking:', err);
+                setError(err.message || 'Failed to fetch clerking details');
             } finally {
                 setLoading(false);
             }
         };
+
         fetchClerkingNote();
-    }, [id, selectedSpecialty]);
+    }, [id, accessToken, state]);
 
     /**
      * Handles form submission and updates clerking note
@@ -69,40 +104,36 @@ const UpdateClerkingSession = () => {
             }
 
             const payload = {
-                specialty: selectedSpecialty,
                 form_data: data
             }
 
             // Make API request
-            const response = await api.post('/clerk-note', payload);
+            const response = await api.put(`/clerkpad/update/${id}`, payload, {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
 
             // Validate response
             if (!response || !response.data) {
                 throw new Error('Invalid response from server');
             }
 
-            if (response.status === 201) {
-                console.log('Clerking session created successfully');
-                navigate('/clerking-sessions');
+            if (response.status === 200) {
+                console.log('Clerking session updated successfully');
+                navigate(`/clerkings/${id}`);
             } else {
                 throw new Error(`Unexpected response status: ${response.status}`);
             }
 
         } catch (error) {
-            // Handle specific error types
-            if (error.response) {
-                // Server responded with error status
-                console.error('Server error:', error.response.data);
-                throw new Error(error.response.data.message || 'Server error occurred');
-            } else if (error.request) {
-                // Request made but no response received
-                console.error('Network error:', error.request);
-                throw new Error('Network error - please check your connection');
-            } else {
-                // Other errors
-                console.error('Error creating clerking session:', error.message);
-                throw new Error('Failed to create clerking session');
-            }
+            // Improve error handling to show user feedback
+            console.error('Error updating clerking session:', error);
+            
+            const errorMessage = error.response?.data?.message 
+                || error.message 
+                || 'Failed to update clerking session';
+            
+            // Add state for error handling
+            setError(errorMessage);
         }
     };
 
@@ -116,15 +147,21 @@ const UpdateClerkingSession = () => {
         );
     }
 
+    // Show error message if an error occurs
+    if (error) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-red-600 text-lg">Error: {error}</div>
+            </div>
+        );
+    }
+
     // Main component render
     return (
         <div>
             <NavbarLoggedIn />
             <div className="min-h-screen bg-gray-50 pt-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-8 text-center">
-                        Update Patient Data
-                    </h1>
                     {/* Specialty information card */}
                     <div className="bg-white rounded-xl shadow-lg p-8 mb-10 border border-gray-100">
                         <h2 className="text-2xl font-bold text-gray-900 mb-8">Specialty</h2>

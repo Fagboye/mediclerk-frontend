@@ -1,8 +1,65 @@
 import { useState } from 'react';
 import { jsPDF } from 'jspdf';
+import { useNavigate } from 'react-router';
+import api from '../../api/axios';
+import { useAuth } from '../../context/AuthContext';
 
-const ActionButtons = (id) => {
+const ActionButtons = ({ id, clerking }) => {
     const [isExporting, setIsExporting] = useState(false);
+    const navigate = useNavigate();
+    const { accessToken } = useAuth();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+
+    // handle update
+    const handleUpdate = async () => {
+        navigate(`/clerkings/${id}/update`, { state: { clerking } });
+    }
+
+    // handle delete
+    const handleDelete = async () => {
+        try {
+            setIsDeleting(true);
+
+            // Validate required parameters
+            if (!id) {
+                throw new Error('Clerking ID is required for deletion');
+            }
+
+            // Send delete request to the server
+            const response = await api.delete(`/clerkpad/delete/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            // Check response status
+            if (response.status === 200) {
+                // Success - navigate to clerkings page
+                navigate('/clerkings');
+            } else {
+                throw new Error(`Unexpected response status: ${response.status}`);
+            }
+
+        } catch (error) {
+            // Handle specific error types
+            if (error.response) {
+                // Server responded with error status
+                console.error('Server error:', error.response.data);
+                throw new Error(error.response.data.message || 'Failed to delete clerking');
+            } else if (error.request) {
+                // Request made but no response received
+                console.error('Network error:', error.request);
+                throw new Error('Network error - please check your connection');
+            } else {
+                // Other errors
+                console.error('Error deleting clerking:', error.message);
+                throw new Error(error.message || 'Failed to delete clerking');
+            }
+        } finally {
+            setIsDeleting(false);
+        }
+    }
 
     // pdf export function
     const handleExportPDF = async () => {
@@ -118,24 +175,34 @@ const ActionButtons = (id) => {
     return (
         <div className="space-x-4">
             <button 
-                className={`px-4 py-2 rounded bg-gray-500 text-white hover:opacity-90
-                    ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`px-4 py-2 rounded-lg bg-gray-600 text-white font-medium
+                    transition duration-200 ease-in-out
+                    hover:bg-gray-700 hover:shadow-md
+                    focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50
+                    ${isExporting ? 'opacity-50 cursor-not-allowed hover:bg-gray-600' : ''}`}
                 onClick={handleExportPDF}
                 disabled={isExporting}
             >
                 {isExporting ? 'Generating PDF...' : 'Export PDF'}
             </button>
             <button
-                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:opacity-90"
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium
+                    transition duration-200 ease-in-out
+                    hover:bg-blue-700 hover:shadow-md
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 onClick={() => handleUpdate(id)}
             >
                 Update
             </button>
             <button
-                className="px-4 py-2 rounded-md bg-red-600 text-white hover:opacity-90"
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium
+                    transition duration-200 ease-in-out
+                    hover:bg-red-700 hover:shadow-md
+                    focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                 onClick={() => handleDelete(id)}
             >
-                Delete
+                {isDeleting ? 'Deleting...' : 'Delete'}
             </button>
         </div>
     )
