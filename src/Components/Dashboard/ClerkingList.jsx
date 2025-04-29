@@ -10,6 +10,7 @@ import ClerkingCard from './ClerkingCard';
 import api from '../../api/axios';
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const ClerkingsList = () => {
     // State management
@@ -18,6 +19,9 @@ const ClerkingsList = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+
+
+    const navigate = useNavigate();
 
     /**
      * Fetches clerking data from the API
@@ -120,9 +124,20 @@ const ClerkingsList = () => {
     // Main render UI
     return (
         <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto mt-16 sm:mt-20">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800 bg-white shadow-sm rounded-lg p-4 sm:p-5 mb-6">
-                Clerking Notes
-            </h2>
+            {/* Header section with title and create new clerking button */}
+            <div className="flex justify-between items-center bg-white shadow-sm rounded-lg p-4 sm:p-5 mb-6">
+                {/* Title */}
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800">
+                    Clerking Notes
+                </h2>
+                {/* Create new clerking button */}
+                <button 
+                    onClick={() => navigate('/clerkings/new')}
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                    New Clerking
+                </button>
+            </div>
 
             {/* Search input */}
             <div className="relative mb-6">
