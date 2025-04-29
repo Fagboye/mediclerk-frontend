@@ -79,7 +79,7 @@ const NewClerkingSession = () => {
 
             if (response.status === 201) {
                 console.log('Clerking session created successfully');
-                navigate(`/clerkings/${response.data.id}`);
+                navigate(`/clerkings/${response.data.clerk_note.id}`);
             }
 
         } catch (error) {
