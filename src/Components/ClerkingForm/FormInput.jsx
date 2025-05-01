@@ -16,6 +16,7 @@
  */
 import { useState } from 'react';
 import api from '../../api/axios';
+import { generateQuestions } from '../../api/geminiapi';
 
 const FormInput = ({
     label,
@@ -42,11 +43,8 @@ const FormInput = ({
         if (isLoading) return;
         try {
             setIsLoading(true);
-            const response = await api.post('/api/suggestions', {
-                field: name,
-                formContext: formValues
-            });
-            setSuggestions(response.data);
+            const response = await generateQuestions(formValues.specialty, name, formValues);
+            setSuggestions(response);
             setIsLoading(false);
         } catch (err) {
             console.error('Error getting AI suggestions:', err);
