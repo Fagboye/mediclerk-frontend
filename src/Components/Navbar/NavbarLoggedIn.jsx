@@ -46,8 +46,9 @@ const NavbarLoggedIn = () => {
             <div className="px-4 sm:px-6 py-4">
                 <div className="flex justify-between items-center">
                     {/* Logo section */}
-                    <Link to="/" className="text-xl sm:text-2xl font-bold text-blue-800">
-                        MediClerk
+                    <Link to="/" className="flex items-center space-x-2">
+                        <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-6 h-6" />
+                        <span className="text-xl sm:text-2xl font-bold text-blue-800">MediClerk</span>
                     </Link>
 
                     {/* Desktop Navigation - hidden on mobile */}
@@ -104,7 +105,7 @@ const NavbarLoggedIn = () => {
                                 className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                                 <span className="sr-only">Open user menu</span>
-                                <div className="h-8 w-8 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                                <div className="h-8 w-8 rounded-full bg-blue-800 text-white flex items-center justify-center">
                                     {user?.last_name?.charAt(0)}
                                 </div>
                             </button>

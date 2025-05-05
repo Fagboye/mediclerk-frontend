@@ -44,9 +44,9 @@ const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit, defaultValues, 
             <button
                 type="submit"
                 disabled={isLoading}
-                className="max-w-xs mx-auto py-3 px-5 bg-gradient-to-r from-blue-600 to-blue-700 
+                className="max-w-xs mx-auto py-3 px-5 bg-gradient-to-r from-blue-700 to-blue-800 
                         text-white font-medium text-base tracking-wide
-                        rounded-lg shadow hover:from-blue-700 hover:to-blue-800 
+                        rounded-lg shadow hover:from-blue-800 hover:to-blue-900 
                         focus:outline-none focus:ring-2 focus:ring-blue-500/50
                         active:scale-[0.98] transform transition-all duration-200
                         disabled:opacity-70 disabled:cursor-not-allowed

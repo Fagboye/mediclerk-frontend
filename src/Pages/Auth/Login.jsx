@@ -91,7 +91,10 @@ const Login = () => {
       {/* Main login container */}
       <div className="min-h-screen flex items-center justify-center bg-blue-50">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">Login to Mediclerk</h2>
+          <div className="flex flex-col items-center mb-6">
+            <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-8 h-8 mb-2" />
+            <h2 className="text-2xl font-bold text-center text-blue-800">Sign In</h2>
+          </div>
           
           {/* Display submission errors if any */}
           {errors.submit && (
@@ -126,8 +129,8 @@ const Login = () => {
               disabled={loading}
               className={`${buttonClasses} ${
                 loading 
-                  ? 'bg-blue-400 cursor-not-allowed' 
-                  : 'bg-blue-600 hover:bg-blue-700'
+                  ? 'bg-blue-700 cursor-not-allowed' 
+                  : 'bg-blue-800 hover:bg-blue-900'
               }`}
             >
               {loading ? 'Logging in...' : 'Login'}
@@ -136,7 +139,7 @@ const Login = () => {
 
           {/* Registration link */}
           <p className="mt-4 text-sm text-center text-gray-600">
-            Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
+            Don't have an account? <a href="/register" className="text-blue-800 hover:underline">Register</a>
           </p>
         </div>
       </div>

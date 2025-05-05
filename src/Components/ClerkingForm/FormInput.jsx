@@ -111,7 +111,7 @@ const FormInput = ({
             <button
               type="button"
               onClick={getAiSuggestions}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-blue-600 transition-colors z-10"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-blue-800 transition-colors z-10"
               disabled={isLoading}
             >
               {/* Loading spinner animation */}

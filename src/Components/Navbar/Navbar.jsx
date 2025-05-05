@@ -13,13 +13,16 @@ const Navbar = () => {
       <div className="px-4 sm:px-6 py-4">
         <div className="flex justify-between items-center">
           <Link to="/">
-            <h1 className="text-xl sm:text-2xl font-bold text-blue-800">MediClerk</h1>
+            <div className="flex items-center space-x-2">
+              <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-6 h-6" />
+              <h1 className="text-xl sm:text-2xl font-bold text-blue-800">MediClerk</h1>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden sm:flex sm:space-x-8">
-            <Link to="/login" className="text-blue-600 hover:underline font-bold">Login</Link>
-            <Link to="/register" className="text-blue-600 hover:underline font-bold">Register</Link>
+            <Link to="/login" className="text-blue-800 hover:underline font-bold">Login</Link>
+            <Link to="/register" className="text-blue-800 hover:underline font-bold">Register</Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -58,13 +61,13 @@ const Navbar = () => {
           <div className="pt-2 pb-3 space-y-1">
             <Link
               to="/login"
-              className="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-gray-50"
+              className="block px-3 py-2 text-base font-medium text-blue-800 hover:bg-gray-50"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-gray-50"
+              className="block px-3 py-2 text-base font-medium text-blue-800 hover:bg-gray-50"
             >
               Register
             </Link>

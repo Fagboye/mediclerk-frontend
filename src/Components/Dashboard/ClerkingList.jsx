@@ -20,7 +20,6 @@ const ClerkingsList = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-
     const navigate = useNavigate();
 
     /**
@@ -93,9 +92,10 @@ const ClerkingsList = () => {
     // Loading state UI
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-[calc(100vh-4rem)] px-4 sm:px-0">
-                <div className="text-base sm:text-lg md:text-xl text-blue-600 animate-pulse">
-                    Loading clerkings...
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                <div className="ml-4 text-lg text-gray-600">
+                    <div className="animate-pulse">Loading clerkings...</div>
                 </div>
             </div>
         );
@@ -123,63 +123,68 @@ const ClerkingsList = () => {
 
     // Main render UI
     return (
-        <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto mt-16 sm:mt-20">
-            {/* Header section with title and create new clerking button */}
-            <div className="flex justify-between items-center bg-white shadow-sm rounded-lg p-4 sm:p-5 mb-6">
-                {/* Title */}
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800">
-                    Clerking Notes
-                </h2>
-                {/* Create new clerking button */}
-                <button 
-                    onClick={() => navigate('/clerkings/new')}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                    New Clerking
-                </button>
+        <div className="min-h-screen bg-gray-50 pt-16"> {/* Added pt-16 to account for navbar height */}
+            {/* Header and search section */}
+            <div className="bg-white shadow-sm">
+                <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto py-4">
+                    {/* Header section with title and create new clerking button */}
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800">
+                            Clerking Notes
+                        </h2>
+                        <button 
+                            onClick={() => navigate('/clerkings/new')}
+                            className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-900 transition-colors"
+                        >
+                            New Clerking
+                        </button>
+                    </div>
+
+                    {/* Search input */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            placeholder="Search for a clerking note..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="w-full px-4 py-3 rounded-lg border border-gray-300 
+                                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+                                     shadow-sm text-sm sm:text-base placeholder-gray-400"
+                        />
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* Search input */}
-            <div className="relative mb-6">
-                <input
-                    type="text"
-                    placeholder="Search for a clerking note..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="w-full px-4 py-3 sm:px-5 sm:py-4 rounded-xl border border-gray-300 
-                             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-                             shadow-sm text-sm sm:text-base placeholder-gray-400"
-                />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
+            {/* Content area */}
+            <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto py-6">
+                {clerkings.length === 0 ? (
+                    <div className="text-center py-8">
+                        <p className="text-gray-600">No clerkings</p>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        {clerkings
+                            .filter(clerking => 
+                                clerking.clerking_note.first_name?.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
+                                clerking.clerking_note.last_name?.toLowerCase().includes(searchTerm.toLowerCase().trim())
+                            )
+                            .map((clerking) => (
+                                <ClerkingCard 
+                                    key={clerking.id} 
+                                    id={clerking.id} 
+                                    specialty={clerking.specialty} 
+                                    clerking_note={clerking.clerking_note} 
+                                    created_at={clerking.created_at} 
+                                />
+                            ))}
+                    </div>
+                )}
             </div>
-
-            {/* Clerking list */}
-            {clerkings.length === 0 ? (
-                <div className="text-center py-8">
-                    <p className="text-gray-600 text-sm sm:text-base">No clerkings found</p>
-                </div>
-            ) : (
-                <div className="grid gap-4 sm:gap-5 md:gap-6">
-                    {clerkings
-                        .filter(clerking => 
-                            clerking.clerking_note.first_name?.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
-                            clerking.clerking_note.last_name?.toLowerCase().includes(searchTerm.toLowerCase().trim())
-                        )
-                        .map((clerking) => (
-                            <ClerkingCard 
-                                key={clerking.id} 
-                                id={clerking.id} 
-                                specialty={clerking.specialty} 
-                                clerking_note={clerking.clerking_note} 
-                                created_at={clerking.created_at} 
-                            />
-                        ))}
-                </div>
-            )}
         </div>
     );
 };
