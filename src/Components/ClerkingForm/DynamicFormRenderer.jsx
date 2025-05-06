@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import FormInput from './FormInput';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit, defaultValues, isLoading}) => {
+const DynamicFormRenderer = ({specialtyId, formFields, onSubmit, defaultValues, isLoading}) => {
     const {
         register, 
         handleSubmit, 
@@ -10,18 +10,28 @@ const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit, defaultValues, 
         clearErrors,
         unregister,
         watch,
+        reset
     } = useForm({defaultValues});
+
+    const prevSpecialtyId = useRef();
+
+    useEffect(() => {
+        reset(defaultValues);
+    }, [defaultValues, reset]);
 
     const formValues = watch();
 
-
     useEffect(() => {
-        // clear form fields when specialty changes
-        formFields.forEach(field => {
-            unregister(field.name);
-        });
-        clearErrors();
-    }, [SpecialtyId, formFields, clearErrors, unregister]);
+        // Only reset form when specialty changes, not on mount
+        if (prevSpecialtyId.current && prevSpecialtyId.current !== specialtyId) {
+            formFields.forEach(field => {
+                unregister(field.name);
+            });
+            clearErrors();
+            reset({}); // Clear all form field values
+        }
+        prevSpecialtyId.current = specialtyId;
+    }, [specialtyId, formFields, clearErrors, unregister, reset]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,6 +49,7 @@ const DynamicFormRenderer = ({SpecialtyId, formFields, onSubmit, defaultValues, 
                     error={errors[field.name]?.message}
                     formValues={formValues}
                     showAiSuggestions={field.showAiSuggestions}
+                    specialtyId={specialtyId}
                 />
             ))}
             <button

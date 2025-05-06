@@ -29,7 +29,8 @@ const FormInput = ({
     register,
     validation,
     formValues,
-    showAiSuggestions = true
+    showAiSuggestions = true,
+    specialtyId
   }) => {
     // State for managing AI suggestions loading and results
     const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +44,9 @@ const FormInput = ({
         if (isLoading) return;
         try {
             setIsLoading(true);
-            const response = await generateQuestions(formValues.specialty, name, formValues);
+            // console.log(specialtyId, name, formValues);
+            const response = await generateQuestions(specialtyId, name, formValues);
+            // console.log(response);
             setSuggestions(response);
             setIsLoading(false);
         } catch (err) {
