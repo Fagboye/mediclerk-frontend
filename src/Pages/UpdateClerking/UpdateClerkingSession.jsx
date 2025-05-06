@@ -53,6 +53,7 @@ const UpdateClerkingSession = () => {
     const [formFields, setFormFields] = useState([]);
     const [defaultValues, setDefaultValues] = useState({});
     const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     // Fetch existing clerking note data when component mounts
@@ -98,6 +99,7 @@ const UpdateClerkingSession = () => {
      */
     const handleFormSubmit = async (data) => {
         try {
+            setIsLoading(true);
             // Validate input data
             if (!data || Object.keys(data).length === 0) {
                 throw new Error('Form data is empty or invalid');
@@ -134,6 +136,8 @@ const UpdateClerkingSession = () => {
             
             // Add state for error handling
             setError(errorMessage);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -188,6 +192,7 @@ const UpdateClerkingSession = () => {
                                 formFields={formFields}
                                 onSubmit={handleFormSubmit}
                                 defaultValues={defaultValues}
+                                isLoading={isLoading}
                             />
                         </div>
                     )}
