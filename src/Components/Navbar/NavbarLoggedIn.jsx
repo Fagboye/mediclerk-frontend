@@ -45,33 +45,12 @@ const NavbarLoggedIn = () => {
         <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-10">
             <div className="px-4 sm:px-6 py-4">
                 <div className="flex justify-between items-center">
-                    {/* Logo section */}
-                    <Link to="/" className="flex items-center space-x-2">
-                        <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-6 h-6" />
-                        <span className="text-xl sm:text-2xl font-bold text-blue-800">MediClerk</span>
-                    </Link>
-
-                    {/* Desktop Navigation - hidden on mobile */}
-                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <Link
-                            to="/clerkings"
-                            className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                        >
-                            Clerking List
-                        </Link>
-                        <Link
-                            to="/clerkings/new"
-                            className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                        >
-                            New Clerking
-                        </Link>
-                    </div>
-
                     {/* Mobile menu button */}
-                    <div className="flex items-center sm:hidden">
+                    <div className="flex items-center">
                         <button
                             onClick={toggleMobileMenu}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                            onBlur={() => setIsMobileMenuOpen(false)}
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:hidden"
                         >
                             <span className="sr-only">Open main menu</span>
                             {/* Hamburger icon */}
@@ -95,6 +74,28 @@ const NavbarLoggedIn = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
+
+                        {/* Logo section */}
+                        <Link to="/" className="flex items-center space-x-2">
+                            <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-6 h-6" />
+                            <span className="text-xl sm:text-2xl font-bold text-blue-800">MediClerk</span>
+                        </Link>
+                    </div>
+
+                    {/* Desktop Navigation - hidden on mobile */}
+                    <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <Link
+                            to="/clerkings"
+                            className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        >
+                            Clerking List
+                        </Link>
+                        <Link
+                            to="/clerkings/new"
+                            className="border-transparent text-gray-500 hover:border-blue-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        >
+                            New Clerking
+                        </Link>
                     </div>
 
                     {/* User menu */}
@@ -102,6 +103,7 @@ const NavbarLoggedIn = () => {
                         <div className="relative">
                             <button
                                 onClick={toggleUserMenu}
+                                onBlur={() => setIsUserMenuOpen(false)}
                                 className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                                 <span className="sr-only">Open user menu</span>
@@ -111,7 +113,9 @@ const NavbarLoggedIn = () => {
                             </button>
 
                             {isUserMenuOpen && (
-                                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50 divide-y divide-gray-100">
+                                <div 
+                                    className="origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50 divide-y divide-gray-100"
+                                >
                                     <div className="px-4 py-3 bg-gray-50 rounded-t-lg">
                                         <p className="text-sm font-semibold text-gray-900 truncate">{user?.first_name} {user?.last_name}</p>
                                         <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
@@ -120,12 +124,14 @@ const NavbarLoggedIn = () => {
                                         <Link
                                             to="/profile"
                                             className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                                            onClick={() => setIsUserMenuOpen(false)}
                                         >
                                             <span className="flex-1">Your Profile</span>
                                         </Link>
                                         <Link
                                             to="/settings"
                                             className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                                            onClick={() => setIsUserMenuOpen(false)}
                                         >
                                             <span className="flex-1">Settings</span>
                                         </Link>
@@ -133,6 +139,7 @@ const NavbarLoggedIn = () => {
                                     <div className="py-1">
                                         <button
                                             onClick={() => {
+                                                setIsUserMenuOpen(false);
                                                 logout();
                                             }}
                                             className="flex w-full items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150 rounded-b-lg"
