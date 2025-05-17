@@ -60,10 +60,18 @@ const NewClerkingSession = () => {
                 throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
             }
 
+            // Ensure all fields are present in the payload
+            const completeData = formFields.reduce((acc, field) => {
+                acc[field.name] = data[field.name] ?? "";
+                return acc;
+            }, {});
+
             const payload = {
                 specialty: selectedSpecialty,
-                form_data: data
+                form_data: completeData
             }
+
+            console.log(payload)
 
             // Make API request to create new clerking note
             const response = await api.post('/clerkpad/create', payload, {

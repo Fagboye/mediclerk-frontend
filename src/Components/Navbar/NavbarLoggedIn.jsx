@@ -88,7 +88,7 @@ const NavbarLoggedIn = () => {
                             <button
                                 onClick={toggleUserMenu}
                                 className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onBlur={() => setIsUserMenuOpen(false)}
+                                // onBlur={() => setIsUserMenuOpen(false)}
                             >
                                 <span className="sr-only">Open user menu</span>
                                 <div className="h-8 w-8 rounded-full bg-blue-800 text-white flex items-center justify-center">
