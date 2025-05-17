@@ -43,7 +43,7 @@ const ClerkingDetails = ({clerking}) => {
      * Main render method for displaying clerking details
      */
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md" id="content">
+        <div className="w-full max-w-7xl mx-auto p-2 bg-white rounded-lg shadow-md" id="content">
             {/* Specialty section */}
             <div className={sectionStyles}>
                 <h2 className={headingStyles}>Specialty</h2>

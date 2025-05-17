@@ -85,26 +85,26 @@ const Login = () => {
   ];
 
   return (
-    <div>
+    <div className="min-h-screen bg-blue-100">
       <Navbar />
     
       {/* Main login container */}
-      <div className="min-h-screen flex items-center justify-center bg-blue-50">
-        <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-          <div className="flex flex-col items-center mb-6">
-            <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-8 h-8 mb-2" />
-            <h2 className="text-2xl font-bold text-center text-blue-800">Sign In</h2>
+      <div className="min-h-screen flex items-center justify-center pt-15">
+        <div className="bg-white p-16 rounded-xl shadow-lg w-full max-w-2xl">
+          <div className="flex flex-col items-center mb-8">
+            <img src="/stethoscope.svg" alt="MediClerk Logo" className="w-12 h-12 mb-3" />
+            <h2 className="text-3xl font-bold text-center text-blue-800">Sign In</h2>
           </div>
           
           {/* Display submission errors if any */}
           {errors.submit && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
               {errors.submit}
             </div>
           )}
 
           {/* Login form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {formFields.map(field => (
               <div key={field.name}>
                 <label className={labelClasses} htmlFor={field.name}>{field.label}</label>
@@ -138,7 +138,7 @@ const Login = () => {
           </form>
 
           {/* Registration link */}
-          <p className="mt-4 text-sm text-center text-gray-600">
+          <p className="mt-6 text-sm text-center text-gray-600">
             Don't have an account? <a href="/register" className="text-blue-800 hover:underline">Register</a>
           </p>
         </div>

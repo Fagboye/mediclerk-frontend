@@ -79,8 +79,10 @@ const ClerkingView = () => {
             {/* Add margin-top to account for fixed navbar height */}
             <div className="container mx-auto p-4 mt-20">
                 {/*action buttons*/}
-                <div className="flex justify-end mb-4">
-                    <ActionButtons id={id} clerking={clerking}/>
+                <div className="w-full max-w-7xl mx-auto px-1 sm:px-8 py-4">
+                    <div className="flex justify-end">
+                        <ActionButtons id={id} clerking={clerking}/>
+                    </div>
                 </div>
                 {/*clerking details*/}
                 <div>

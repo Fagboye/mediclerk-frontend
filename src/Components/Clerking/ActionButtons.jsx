@@ -173,9 +173,9 @@ const ActionButtons = ({ id, clerking }) => {
     };
 
     return (
-        <div className="space-x-4">
+        <div className="flex flex-wrap gap-2 sm:gap-4">
             <button 
-                className={`px-4 py-2 rounded-lg bg-gray-600 text-white font-medium
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-gray-600 text-white text-sm sm:text-base font-medium
                     transition duration-200 ease-in-out
                     hover:bg-gray-700 hover:shadow-md
                     focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50
@@ -186,7 +186,7 @@ const ActionButtons = ({ id, clerking }) => {
                 {isExporting ? 'Generating PDF...' : 'Export PDF'}
             </button>
             <button
-                className="px-4 py-2 rounded-lg bg-blue-800 text-white font-medium
+                className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-blue-800 text-white text-sm sm:text-base font-medium
                     transition duration-200 ease-in-out
                     hover:bg-blue-900 hover:shadow-md
                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -196,7 +196,7 @@ const ActionButtons = ({ id, clerking }) => {
             </button>
             <button
                 disabled={isDeleting}
-                className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium
+                className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-red-600 text-white text-sm sm:text-base font-medium
                     transition duration-200 ease-in-out
                     hover:bg-red-700 hover:shadow-md
                     focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"

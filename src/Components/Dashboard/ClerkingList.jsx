@@ -123,12 +123,12 @@ const ClerkingsList = () => {
 
     // Main render UI
     return (
-        <div className="min-h-screen bg-gray-50 pt-16"> {/* Added pt-16 to account for navbar height */}
+        <div className="min-h-screen bg-gray-50 pt-10 mt-20 mb-20">
             {/* Header and search section */}
-            <div className="bg-white shadow-sm">
-                <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto py-4">
+            <div className="w-full flex justify-center bg-transparent">
+                <div className="w-full max-w-7xl mx-2 bg-white border border-gray-200 rounded-xl shadow-md px-4 sm:px-8 py-4">
                     {/* Header section with title and create new clerking button */}
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-4 pt-2">
                         <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-800">
                             Clerking Notes
                         </h2>
@@ -161,7 +161,7 @@ const ClerkingsList = () => {
             </div>
 
             {/* Content area */}
-            <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto py-6">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6">
                 {clerkings.length === 0 ? (
                     <div className="text-center py-8">
                         <p className="text-gray-600">No clerkings</p>
