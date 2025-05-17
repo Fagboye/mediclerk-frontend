@@ -5,7 +5,7 @@ import OG from '../../assets/O&G.png'
 
 const SpecialtySelector = ({specialties, selectedSpecialty, onSelect}) => {
     const styles = {
-        container: "grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-6 sm:p-6 relative z-0",
+        container: "grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-6 sm:p-6",
         button: {
             base: "w-full flex flex-col items-center p-4 sm:p-8 rounded-xl transition-all duration-300 ease-in-out transform active:scale-95 sm:hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden group touch-manipulation",
             selected: "bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-500 shadow-lg",
